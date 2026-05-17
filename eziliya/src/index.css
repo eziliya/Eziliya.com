@@ -1,0 +1,69 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Surfaces */
+  --color-bg: #0f1219;
+  --color-bg-subtle: #161b26;
+  --color-surface: #1c2333;
+  --color-surface-hover: #242d42;
+
+  /* Text */
+  --color-text: #f1f4f9;
+  --color-text-muted: #9aa4b8;
+
+  /* Brand / accent */
+  --color-accent: #3d8bfd;
+  --color-accent-hover: #5c9eff;
+  --color-accent-muted: rgba(61, 139, 253, 0.15);
+
+  /* UI */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+
+  /* Semantic */
+  --color-danger: #f87171;
+  --color-danger-muted: rgba(248, 113, 113, 0.12);
+  --color-success: #4ade80;
+  --color-success-muted: rgba(74, 222, 128, 0.12);
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-pill: 9999px;
+
+  --font-sans: "Poppins", system-ui, -apple-system, sans-serif;
+  --nav-height: 64px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Global input styling - black text color */
+input,
+textarea,
+select {
+  color: #000000 !important;
+}
+
+/* Remove underline from all h2 tags */
+h2 {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}

@@ -1,0 +1,457 @@
+/* AU Small Finance Final Report Styles */
+
+/* Remove all underlines globally */
+* {
+  text-decoration: none !important ;
+}
+
+a, a:hover, a:visited, a:active {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+/* Paragraph styles - ensure black color */
+p {
+  color: #000000 !important;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  border: 2px solid #000000;
+}
+
+table tr {
+  border: 1px solid #000000;
+}
+
+table td,
+table th {
+  padding: 12px;
+  border: 1px solid #000000;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* Ensure all table borders are visible */
+table tbody tr td,
+table thead tr th,
+table tfoot tr td {
+  border: 1px solid #000000 !important;
+}
+
+table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Headers */
+h1, h2, h3, h4 {
+  color: #024606;
+  margin: 10px 0;
+  font-weight: 600;
+  display: block;
+  visibility: visible;
+ text-decoration: none;
+  
+}
+
+h1 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 22px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #024606;
+  font-weight: bold;
+  display: block !important;
+  visibility: visible !important;
+  text-decoration: none;
+
+}
+
+h4 {
+  font-size: 14px;
+  margin: 10px 0;
+  font-weight: 600;
+  text-decoration: none;
+ 
+}
+
+/* Labels */
+label, lable, [for], [htmlFor] {
+  font-weight: 500 !important;
+  color: #000000 !important;
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  visibility: visible !important;
+  font-size: 14px !important;
+  padding: 8px 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif !important;
+  text-decoration: none !important;
+}
+
+/* Ensure all label elements are styled consistently */
+th label, td label, th lable, td lable {
+  font-weight: 500 !important;
+  color: #000000 !important;
+  font-size: 14px !important;
+  font-family: Arial, sans-serif !important;
+  text-decoration: none !important;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="file"],
+textarea,
+select,
+option {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #000000;
+  border-radius: 0;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #000000;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  min-height: 38px;
+  background-color: #ffffff;
+  text-decoration: none !important;
+  pointer-events: auto !important;
+  cursor: text !important;
+}
+
+/* Remove underlines from all input elements */
+input {
+  text-decoration: none !important;
+  pointer-events: auto !important;
+  cursor: text !important;
+}
+
+input:focus {
+  text-decoration: none !important;
+  outline: 2px solid #007bff;
+  border-color: #007bff;
+}
+
+/* Datalist styling */
+datalist {
+  width: 100%;
+  font-size: 14px;
+  border: 1px solid #000000;
+  font-family: Arial, sans-serif;
+}
+
+datalist option {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #000000;
+  border-bottom: 1px solid #000000;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+/* Select dropdown options */
+select option {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  font-family: Arial, sans-serif;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+input[type="file"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #000000;
+  border-width: 1px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: #66666656;
+  font-style: normal;
+  font-family: Arial, sans-serif;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #000000;
+  border-radius: 0;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #000000;
+  min-height: 38px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.input:focus {
+  border-color: #000000;
+  border-width: 1px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Table cell labels and inputs alignment */
+table td label,
+table th label,
+table td lable,
+table th lable {
+  display: block;
+  width: 100%;
+  font-size: 14px !important;
+  font-family: Arial, sans-serif !important;
+  color: #000000;
+  padding: 4px 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+
+table td input,
+table th input,
+table td select,
+table th select,
+table td textarea,
+table th textarea,
+table td option,
+table th option {
+  width: 100%;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #000000;
+  padding: 8px 12px;
+  min-height: 38px;
+  border: 1px solid #000000;
+  border-radius: 0;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+  padding: 12px 24px;
+  margin: 10px 5px;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+button[type="reset"] {
+  background-color: #dc3545;
+  color: white;
+}
+
+button[type="reset"]:hover {
+  background-color: #c82333;
+}
+
+button[type="button"] {
+  background-color: #6c757d;
+  color: white;
+}
+
+button[type="button"]:hover {
+  background-color: #5a6268;
+}
+
+/* Section Headers in Tables */
+tr td h3,
+tr th h3 {
+  margin: 0;
+  padding: 0;
+  color: #024606;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  display: block !important;
+  visibility: visible !important;
+  text-decoration: none;
+}
+
+/* Document Section Headers */
+tr td h3:first-child,
+tr th h3:first-child {
+  color: #024606;
+  font-weight: bold;
+  display: block !important;
+  visibility: visible !important;
+  text-decoration: none;
+}
+
+/* Specific styling for Documents Name and Document Value headers */
+table tr td h3,
+table tr th h3 {
+  background-color: transparent;
+  color: #024606;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  text-decoration: none;
+}
+
+/* Form Sections */
+.formSection {
+  margin: 30px 0;
+  padding: 20px;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Photo Upload Section */
+.photoSection {
+  margin: 20px 0;
+  padding: 15px;
+  border: 2px dashed #000000;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #f8f9fa;
+}
+
+.photoSection input[type="file"] {
+  margin: 10px 0;
+  border: 2px solid #000000;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+/* Signature Section */
+.signatureSection {
+  margin-top: 40px;
+  padding: 20px;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.signatureBox {
+  display: inline-block;
+  width: 200px;
+  height: 80px;
+  border-bottom: 2px solid #000000;
+  margin: 20px;
+}
+
+/* Print Styles */
+@media print {
+  .container {
+    max-width: 100%;
+    padding: 10px;
+  }
+  
+  button {
+    display: none;
+  }
+  
+  input,
+  textarea,
+  select {
+    border: 2px solid #000;
+  }
+  
+  table {
+    border: 2px solid #000;
+  }
+  
+  table td,
+  table th {
+    border: 1px solid #000;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  table {
+    font-size: 12px;
+  }
+  
+  table td,
+  table th {
+    padding: 8px;
+  }
+  
+  h1 {
+    font-size: 22px;
+  }
+  
+  h2 {
+    font-size: 18px;
+  }
+  
+  h3 {
+    font-size: 16px;
+  }
+}
+
+/* Made with Bob */

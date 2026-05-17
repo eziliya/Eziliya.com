@@ -1,0 +1,252 @@
+/* Modern and Professional Stage Calculator Styles */
+
+.container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  font-weight: 400;
+}
+
+.tableWrapper {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.table thead th {
+  padding: 1.2rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-bottom: 3px solid #5568d3;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.stageLabel {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stageLabel::before {
+  content: '▸';
+  color: #667eea;
+  font-size: 1.2rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #667eea;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input:hover:not(:read-only) {
+  border-color: #b8c5f0;
+}
+
+.input::placeholder {
+  color: #bdc3c7;
+  font-weight: 400;
+}
+
+.inputReadOnly {
+  background-color: #f0f0f0;
+  color: #7f8c8d;
+  cursor: not-allowed;
+  font-weight: 600;
+  text-align: center;
+}
+
+.inputWeight {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  border: none;
+  cursor: default;
+}
+
+.inputCompletion {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  border: none;
+  cursor: default;
+}
+
+.inputRecommendation {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  border: none;
+  cursor: default;
+}
+
+.totalRow {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  font-weight: 700;
+  border-top: 3px solid #f39c12;
+}
+
+.totalRow td {
+  padding: 1.2rem 1rem;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .table {
+    font-size: 0.85rem;
+  }
+  
+  .table thead th,
+  .table td {
+    padding: 0.8rem 0.6rem;
+  }
+  
+  .input {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .tableWrapper {
+    border-radius: 12px;
+    overflow-x: auto;
+  }
+  
+  .table {
+    font-size: 0.75rem;
+    min-width: 800px;
+  }
+  
+  .table thead th,
+  .table td {
+    padding: 0.6rem 0.4rem;
+  }
+  
+  .input {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Animation for inputs */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.table tbody tr {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Scrollbar styling */
+.tableWrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableWrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+}
+
+/* Made with Bob */

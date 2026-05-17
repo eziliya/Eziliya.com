@@ -1,0 +1,488 @@
+/* ===================================
+   PROFILE PAGE - Modern Professional Design
+   =================================== */
+
+.page {
+  min-height: calc(100vh - var(--nav-height, 64px));
+  padding: 2.5rem clamp(1.25rem, 4vw, 2.5rem);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.headerBlock {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #666666;
+  font-weight: 500;
+}
+
+.bannerError {
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  color: #dc2626;
+  background: #fee2e2;
+  border: 2px solid #fca5a5;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.1);
+}
+
+.bannerSuccess {
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+  color: #059669;
+  background: #d1fae5;
+  border: 2px solid #6ee7b7;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.1);
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  border-bottom: 2px solid #f3f4f6;
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.avatarWrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  border: 3px solid #ffffff;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 13px;
+}
+
+.uploadButton {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 3px solid #ffffff;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  z-index: 2;
+}
+
+.uploadButton:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+}
+
+.uploadButton:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.uploadButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.uploadIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.uploadSpinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+.removeButton {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #dc2626;
+  border: 3px solid #ffffff;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+  z-index: 2;
+}
+
+.removeButton:hover:not(:disabled) {
+  transform: scale(1.1);
+  background: #b91c1c;
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.5);
+}
+
+.removeButton:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.removeButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.removeIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.fileInput {
+  display: none;
+}
+
+.heroText {
+  min-width: 0;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.displayName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+  word-break: break-word;
+}
+
+.emailPreview {
+  font-size: 0.95rem;
+  color: #6b7280;
+  word-break: break-all;
+  font-weight: 500;
+}
+
+.rolePill {
+  display: inline-flex;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.list {
+  padding: 0.5rem 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1.25rem;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid #f3f4f6;
+  align-items: start;
+  transition: background 0.2s ease;
+}
+
+.row:hover {
+  background: #f9fafb;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.dt {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #667eea;
+  padding-top: 0.2rem;
+}
+
+.dd {
+  font-size: 1rem;
+  color: #1a1a1a;
+  word-break: break-word;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.mono {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.875rem;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.footer {
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border-top: 2px solid #e5e7eb;
+  text-align: center;
+}
+
+.refreshNote {
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  border: 2px solid #e5e7eb;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1.5rem 1rem;
+  }
+
+  .headerBlock {
+    margin-bottom: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.875rem;
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .avatarWrapper {
+    margin-bottom: 0.5rem;
+  }
+
+  .avatar {
+    width: 4rem;
+    height: 4rem;
+    font-size: 1.75rem;
+  }
+
+  .uploadButton {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .uploadIcon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .removeButton {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .removeIcon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .heroText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .displayName {
+    font-size: 1.25rem;
+  }
+
+  .emailPreview {
+    font-size: 0.875rem;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .dt {
+    font-size: 0.75rem;
+  }
+
+  .dd {
+    font-size: 0.9375rem;
+  }
+
+  .footer {
+    padding: 1.25rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .inner {
+    max-width: 100%;
+  }
+
+  .card {
+    border-radius: 12px;
+  }
+
+  .hero {
+    padding: 1.25rem;
+  }
+
+  .row {
+    padding: 0.875rem 1rem;
+  }
+}
+
+/* ===================================
+   ACCESSIBILITY
+   =================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .row,
+  .spinner {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Focus Visible for Keyboard Navigation */
+.card:focus-visible {
+  outline: 3px solid #667eea;
+  outline-offset: 4px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid #000000;
+  }
+
+  .hero {
+    border-bottom: 3px solid #000000;
+  }
+
+  .row {
+    border-bottom: 2px solid #000000;
+  }
+
+  .dt {
+    color: #000000;
+  }
+
+  .dd {
+    color: #000000;
+  }
+}
+
+/* Made with Bob */

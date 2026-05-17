@@ -1,0 +1,236 @@
+/* ===================================
+   BANK SELECTION PAGE - Modern Design
+   =================================== */
+
+/* Main Container */
+.banknameContainer {
+  min-height: 100vh;
+  background: #ffffff;
+  padding: 2rem;
+}
+
+/* Header Section */
+.header {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Page Title */
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Back Button */
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: #f3f4f6;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.backBtn:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: translateX(-3px);
+}
+
+.backBtn:active {
+  transform: translateX(-3px) scale(0.95);
+}
+
+/* Instruction Text */
+.instruction {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Bank List */
+.banknameList {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Individual Bank Item */
+.bankname {
+  color: #4b5563;
+
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bankname:hover {
+  border-color: #2563eb;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+  transform: translateY(-4px);
+}
+
+/* Bank Link */
+.bankname a {
+  display: block;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.bankname a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.bankname:hover a::before {
+  transform: scaleY(1);
+}
+
+.bankname:hover a {
+  color: #2563eb;
+  padding-left: 2rem;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .banknameContainer {
+    padding: 1.5rem;
+  }
+
+  .header {
+    margin-bottom: 1.5rem;
+  }
+
+  .pageTitle {
+    font-size: 1.75rem;
+  }
+
+  .backBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+
+  .instruction {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .banknameList {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .bankname a {
+    padding: 1.25rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .banknameContainer {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+
+  .backBtn {
+    width: 38px;
+    height: 38px;
+    font-size: 1.125rem;
+  }
+
+  .instruction {
+    font-size: 0.95rem;
+  }
+
+  .banknameList {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+
+  .bankname a {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .bankname,
+  .bankname a,
+  .bankname a::before,
+  .backBtn {
+    transition: none;
+  }
+
+  .bankname:hover {
+    transform: none;
+  }
+
+  .backBtn:hover {
+    transform: none;
+  }
+}
+
+/* Focus Visible for Keyboard Navigation */
+.backBtn:focus-visible,
+.bankname a:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+/* Made with Bob */

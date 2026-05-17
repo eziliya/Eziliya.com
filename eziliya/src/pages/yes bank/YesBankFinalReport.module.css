@@ -1,0 +1,248 @@
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+/* Download Section */
+.downloadSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.downloadBtn {
+  padding: 12px 30px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.downloadBtn:hover {
+  background-color: #0056b3;
+}
+
+.downloadBtn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Report Container */
+div[data-pdf-root="ausmallfinance"] {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  background-color: white;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+/* Table Caption */
+caption {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  background-color: #007bff;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Table Headers */
+th {
+  background-color: #f8f9fa;
+  color: #333;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+/* Table Data Cells */
+td {
+  padding: 10px 12px;
+  border: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+/* Section Headers */
+th h3 {
+  margin: 0;
+  padding: 8px 0;
+  font-size: 18px;
+  color: #007bff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+th h4 {
+  margin: 0;
+  padding: 5px 0;
+  font-size: 14px;
+  color: #495057;
+  font-weight: 600;
+}
+
+td h4 {
+  margin: 0;
+  padding: 5px 0;
+  font-size: 14px;
+  color: #495057;
+  font-weight: 600;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Labels */
+label {
+  font-weight: 500;
+  color: #495057;
+  display: inline-block;
+}
+
+/* Specific Input Styling */
+.input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Image Styling */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+/* File Upload Styling */
+input[type="file"] {
+  padding: 5px;
+  font-size: 13px;
+}
+
+/* Paragraph Styling */
+p {
+  margin: 10px 0;
+  line-height: 1.6;
+  color: #495057;
+  text-align: justify;
+}
+
+/* Row Hover Effect */
+tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Alternating Row Colors for Better Readability */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* PDF Mode Styling */
+.pdfMode {
+  background-color: white !important;
+}
+
+.pdfMode table {
+  page-break-inside: auto;
+}
+
+.pdfMode tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+}
+
+.pdfMode th,
+.pdfMode td {
+  page-break-inside: avoid;
+}
+
+/* Responsive Design */
+@media print {
+  .downloadSection {
+    display: none;
+  }
+  
+  table {
+    page-break-inside: auto;
+  }
+  
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  div[data-pdf-root="ausmallfinance"] {
+    padding: 15px;
+  }
+  
+  table {
+    font-size: 12px;
+  }
+  
+  th, td {
+    padding: 8px;
+  }
+  
+  input[type="text"],
+  input[type="number"] {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+}
+
+/* Made with Bob */

@@ -1,0 +1,476 @@
+/* ============================================
+   HOME PAGE - MODERN PROFESSIONAL STYLES
+   ============================================ */
+
+/* Main Container */
+.homeContainer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding-top: var(--nav-height);
+}
+
+/* Content Wrapper */
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero Section */
+.title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.welcomeText {
+  font-size: 1.25rem;
+  color: #666666;
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: 500;
+}
+
+/* Section Styling */
+.roleSection,
+.quickAccessSection {
+  margin-bottom: 4rem;
+  animation: slideUp 0.7s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+  position: relative;
+  display: inline-block;
+  letter-spacing: -0.02em;
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 20px;
+}
+
+.sectionDescription {
+  font-size: 1.1rem;
+  color: #666666;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  font-weight: 500;
+}
+
+/* Role Cards Grid */
+.roleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.roleCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 2rem;
+  text-decoration: none;
+  color: #1a1a1a;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+.roleCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.roleCard::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  transition: all 0.4s ease;
+}
+
+.roleCard:hover {
+  transform: translateY(-8px);
+  border-color: #667eea;
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+}
+
+.roleCard:hover::before {
+  transform: scaleX(1);
+}
+
+.roleCard:hover::after {
+  top: -30%;
+  right: -5%;
+  opacity: 1;
+}
+
+.roleCard:active {
+  transform: translateY(-4px);
+}
+
+.roleIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  filter: grayscale(0.2);
+  transition: all 0.3s ease;
+}
+
+.roleCard:hover .roleIcon {
+  filter: grayscale(0);
+  transform: scale(1.15) rotate(5deg);
+}
+
+.roleCard h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #000000;
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 2;
+}
+
+.roleCard p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.6;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+}
+
+/* Disabled Role Card */
+.roleCardDisabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+.roleCardDisabled:hover {
+  transform: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border-color: #e5e7eb;
+}
+
+.roleCardDisabled::before {
+  display: none;
+}
+
+.roleCardDisabled .roleIcon {
+  filter: grayscale(1);
+}
+
+/* Not Eligible Message */
+.notEligible {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+.lockIcon {
+  font-size: 1rem;
+}
+
+/* Quick Access Section */
+.quickAccessSection {
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.quickAccessSection::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.quickAccessButtons {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.quickAccessBtn {
+  flex: 1;
+  min-width: 200px;
+  padding: 1.25rem 2rem;
+  background: #f00505;
+  color: #2563eb;
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #2563eb;
+}
+
+.quickAccessBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.quickAccessBtn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4);
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.quickAccessBtn:hover::before {
+  left: 100%;
+}
+
+.quickAccessBtn:active {
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .roleGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 2rem 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .welcomeText {
+    font-size: 1.1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.75rem;
+  }
+
+  .sectionDescription {
+    font-size: 1rem;
+  }
+
+  .roleGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .roleCard {
+    padding: 1.5rem;
+  }
+
+  .roleIcon {
+    font-size: 2.5rem;
+  }
+
+  .quickAccessButtons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .quickAccessBtn {
+    min-width: 100%;
+  }
+
+  .quickAccessSection {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .roleCard {
+    border-radius: 12px;
+  }
+
+  .roleCard h3 {
+    font-size: 1.25rem;
+  }
+
+  .roleCard p {
+    font-size: 0.9rem;
+  }
+
+  .quickAccessSection {
+    border-radius: 12px;
+  }
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus States for Accessibility */
+.roleCard:focus-visible,
+.quickAccessBtn:focus-visible {
+  outline: 3px solid #667eea;
+  outline-offset: 4px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .roleCard,
+  .quickAccessSection {
+    border: 2px solid #000000;
+  }
+
+  .sectionTitle,
+  .roleCard h3 {
+    color: #000000;
+  }
+
+  .sectionDescription,
+  .roleCard p,
+  .welcomeText {
+    color: #333333;
+  }
+}
+
+/* Loading State (Optional) */
+.content.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Print Styles */
+@media print {
+  .homeContainer {
+    background: white;
+  }
+
+  .roleCard,
+  .quickAccessSection {
+    border: 1px solid #ccc;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+
+  .quickAccessBtn {
+    background: #667eea;
+    color: white;
+  }
+
+  .title {
+    color: #000000;
+    -webkit-text-fill-color: #000000;
+  }
+}
+
+/* Made with Bob */
