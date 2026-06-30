@@ -11,7 +11,7 @@ import logopng from '../../assets/logo.png'
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 
-export default function CholamandalamFinalReport() {    const location = useLocation()
+export default function CholamandalamFinalReport() {            const location = useLocation()
      const [formData, setFormData] = useState(() => location.state?.formData ?? {})
      const [isDownloadingPdf, setIsDownloadingPdf] = useState(false)
      const [isSaving, setIsSaving] = useState(false)
@@ -1092,7 +1092,6 @@ export default function CholamandalamFinalReport() {    const location = useLoca
                <th><label for='documentsProvided'>Documents as Provided :</label></th>
                <th colSpan="5"><input type='text' name='documentsProvided' id='documentsProvided' value={documentsProvided} onChange={handleChange}></input><br></br></th></tr>
 
-               <tr style={{height:120}} className={styles.noBorder} > <td></td></tr>
    
              <tr>
    
@@ -1131,6 +1130,7 @@ export default function CholamandalamFinalReport() {    const location = useLoca
                  </datalist><br></br></th>
              </tr>
              
+              <tr style={{height:120}} className={styles.noBorder} > <td></td></tr>
    
              <tr>
    
@@ -1323,7 +1323,6 @@ export default function CholamandalamFinalReport() {    const location = useLoca
                    <option value="20 feet"></option>
                  </datalist><br></br></th></tr>
 
-                 <tr style={{height:170}} className={styles.noBorder} > <td></td></tr>  
    
              <tr><th><label htmlFor="Propertyareaiscommunitydominatedare">Property Area is community dominated are:</label></th>
                <th colSpan="2">
@@ -1372,8 +1371,8 @@ export default function CholamandalamFinalReport() {    const location = useLoca
                    <option value="No"></option>
                  </datalist></th>
              </tr>
-             
-               
+
+               <tr style={{height:150}} className={styles.noBorder} > <td></td></tr>  
    
              <tr><th><label for="Degree of Risk Associated">Degree of Risk Associated :</label></th>
                <th colSpan="2"><input list="Degree of Risk Associated" name='DegreeOfRiskAssociated' id='DegreeOfRiskAssociated' value={DegreeOfRiskAssociated} onChange={handleChange} />
@@ -1389,8 +1388,7 @@ export default function CholamandalamFinalReport() {    const location = useLoca
                    <option value="High"></option>
                  </datalist><br></br></th></tr>
    
-               
-   
+                 
              <tr><th colSpan="6"><name>BOUNDARIES :</name></th></tr>
              <tr><th colSpan="6"><name>Boundaries of Building/Apartment :</name></th></tr>
              
@@ -1453,8 +1451,6 @@ export default function CholamandalamFinalReport() {    const location = useLoca
                <td><input type="text" name='ActualTotalArea' id='ActualTotalArea' value={ActualTotalArea} placeholder='' className={styles.input}  onChange={handleChange} /></td>
              </tr>
              
-             <tr style={{height:350}} className={styles.noBorder} > <td></td></tr>
-   
              <tr><td colSpan="6"><name>Area & Accommodation Details :</name></td></tr>
    
              <tr>
@@ -1529,6 +1525,8 @@ export default function CholamandalamFinalReport() {    const location = useLoca
    
              <tr><th><label htmlFor='BuildingSanctionApprovedPlanDetails'>Building sanction/Approved Plan Details :</label></th>
                <th colSpan="5"><input type='text' name='BuildingSanctionApprovedPlanDetails' id='BuildingSanctionApprovedPlanDetails' value={BuildingSanctionApprovedPlanDetails} onChange={handleChange}></input><br></br></th></tr>
+
+                <tr style={{height:90}} className={styles.noBorder} > <td></td></tr>
    
              <tr><th > <label htmlFor='CommencementCertificate'>Commencement Certificate :</label></th>
                <th colSpan="5"><input type='text' name='CommencementCertificate' id='CommencementCertificate' value={CommencementCertificate} onChange={handleChange}></input></th></tr>
@@ -1546,7 +1544,7 @@ export default function CholamandalamFinalReport() {    const location = useLoca
    
              <tr><th><label htmlFor='PropertyOwner'>Property Owner as per Document :</label></th>
                <th colSpan="5"> <input type='text' name='PropertyOwner' id='PropertyOwner' value={PropertyOwner} onChange={handleChange}></input><br></br></th></tr>
-               <tr style={{height:120}} className={styles.noBorder} > <td></td></tr>
+               
    
              <tr><th><label for="isthepropertywithinmunicipalLimit">is the property within municipal Limit'</label></th>
                <th colSpan="5"><input list="is the property within municipal Limit" name='isthepropertywithinmunicipalLimit' id='isthepropertywithinmunicipalLimit' value={formData.isthepropertywithinmunicipalLimit ?? ''} onChange={handleChange} />
@@ -1592,22 +1590,23 @@ export default function CholamandalamFinalReport() {    const location = useLoca
                <th colSpan="2"> <input type='text' name='TotalLandValue' id='TotalLandValue' value={TotalLandValue}  onChange={handleChange}></input></th>
                <th><label for='name'>Total Construction Value at present construction stage(in Rs) :</label></th>
                <th colSpan="2"><input type='text' name='TotalConstructionValue' id='TotalConstructionValue' value={TotalConstructionValue} onChange={handleChange}></input><br></br></th></tr>
+
    
              <tr><th><label for='TotalFairMarketValues'>Total fair Market Value at 100% completions(in Rs) :</label></th>
                <th colSpan="2"><input type='text' name='TotalFairMarketValues' id='TotalFairMarketValues' value={TotalFairMarketValues} onChange={handleChange}></input></th>
-   
+
                 
                <th><label for='name'>Total Realizable Value on present completion stage(in Rs) :</label></th>
                <th colSpan="2"> <input type='text' name='TotalRealizableValue' id='TotalRealizableValue' value={TotalRealizableValue} onChange={handleChange}></input><br></br></th></tr>
    
-               
+              <tr style={{height:90}} className={styles.noBorder} > <td></td></tr>               
    
              <tr><th><label for='name'>Total Forced/Distressed Value at 100% completion(in Rs) :</label></th>
                <th colSpan="2"> <input type='text' name='TotalForcedDistressedValue' id='TotalForcedDistressedValue' value={TotalForcedDistressedValue}onChange={handleChange}></input></th>
                <th><label for='name'>Total Forced/Distressed Value on present completion stage(in Rs) :</label></th>
                <th colSpan="2"> <input type='text' name='TotalForcedDistressedValuePresent' id='TotalForcedDistressedValuePresent' value={TotalForcedDistressedValuePresent}onChange={handleChange}></input><br></br></th></tr>
    
-               <tr style={{height:220}} className={styles.noBorder} > <td></td></tr>
+               
    
              <tr><th colSpan="6"><name>Valuvation of flat/shop/office/industrial/other unit etc :</name></th></tr>
              <tr><td><label htmlFor='SBUA'>SBUA(SFT) :</label></td>
@@ -1670,7 +1669,7 @@ export default function CholamandalamFinalReport() {    const location = useLoca
              <tr><th> <label for='name'>Realizable value(in Rs) :</label></th>
                <th colSpan="5"> <input type='text' name='RealizableValue' id='RealizableValue' value={RealizableValue}onChange={handleChange}></input></th></tr>
                
-               <tr style={{height:150}} className={styles.noBorder} > <td></td></tr>
+               <tr style={{height:100}} className={styles.noBorder} > <td></td></tr>
    
              <tr><th colSpan="6"><name>Remarks/Observation :</name></th></tr>
              <tr>
@@ -1798,7 +1797,7 @@ export default function CholamandalamFinalReport() {    const location = useLoca
                  Report isvalidfor 90 days from the date of visit or report.
                </p> </td></tr>
               
-              <tr style={{height:420}} className={styles.noBorder} > <td></td></tr>
+              <tr style={{height:720}} className={styles.noBorder} > <td></td></tr>
    
              <tr>
               
@@ -1936,7 +1935,7 @@ export default function CholamandalamFinalReport() {    const location = useLoca
                </td>
              </tr>
              
-             <tr style={{height:650}} className={styles.noBorder} > <td></td></tr>
+             <tr style={{height:750}} className={styles.noBorder} > <td></td></tr>
    
              <tr>
                <th colSpan="3">
@@ -2043,7 +2042,7 @@ export default function CholamandalamFinalReport() {    const location = useLoca
                </th>
              </tr>
              
-            <tr style={{height:650}} className={styles.noBorder} > <td></td></tr>
+            <tr style={{height:850}} className={styles.noBorder} > <td></td></tr>
    
              <tr>
                <th colSpan="3">

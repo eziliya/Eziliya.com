@@ -28,6 +28,11 @@ mongoose.connect(config.mongoDB).then(() => {
     process.exit(1);
 });
 
+// Health check for Render / load balancers
+app.get('/', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
+
 // Routes
 app.use('/', router);
 
