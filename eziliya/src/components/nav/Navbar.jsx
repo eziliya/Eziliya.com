@@ -17,12 +17,6 @@ function navItemsForUser() {
   } catch {
     user = null
   }
-  if (user?.role === 'admin') {
-    return [
-      ...baseItems,
-      { name: 'Create task', path: '/reports/create' },
-    ]
-  }
   if (user?.role === 'valuer') {
     return [
       ...baseItems,
@@ -33,6 +27,12 @@ function navItemsForUser() {
     return [
       ...baseItems,
       { name: 'My Reports', path: '/site-engineer/reports' },
+    ]
+  }
+  if (user?.role === 'technical-engineer') {
+    return [
+      ...baseItems,
+      { name: 'My Reports', path: '/technical-engineer/reports' },
     ]
   }
   if (user?.role === 'sales-team') {
@@ -50,6 +50,16 @@ export default function Navbar() {
   const location = useLocation()
   const items = navItemsForUser()
   const [menuOpen, setMenuOpen] = useState(false)
+  
+  // Check if user is sales team
+  const isSalesTeam = () => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      return user?.role === 'sales-team'
+    } catch {
+      return false
+    }
+  }
 
   useEffect(() => {
     setMenuOpen(false)
@@ -116,26 +126,30 @@ export default function Navbar() {
               {item.name}
             </NavLink>
           ))}
-          <a
-            href="https://mail.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.link} ${styles.emailLink}`}
-            aria-label="Open Gmail"
-            title="Open Gmail"
-          >
-            📧 Gmail
-          </a>
-          <a
-            href="https://web.whatsapp.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.link} ${styles.whatsappLink}`}
-            aria-label="Open WhatsApp"
-            title="Open WhatsApp"
-          >
-            💬 WhatsApp
-          </a>
+          {!isSalesTeam() && (
+            <>
+              <a
+                href="https://mail.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.link} ${styles.emailLink}`}
+                aria-label="Open Gmail"
+                title="Open Gmail"
+              >
+                📧 Gmail
+              </a>
+              <a
+                href="https://web.whatsapp.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.link} ${styles.whatsappLink}`}
+                aria-label="Open WhatsApp"
+                title="Open WhatsApp"
+              >
+                💬 WhatsApp
+              </a>
+            </>
+          )}
           <button
             type="button"
             className={`${styles.link} ${styles.linkLogout} ${styles.logoutBtn}`}
@@ -191,28 +205,32 @@ export default function Navbar() {
               {item.name}
             </NavLink>
           ))}
-          <a
-            href="https://mail.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.linkMobile} ${styles.emailLinkMobile}`}
-            aria-label="Open Gmail"
-            title="Open Gmail"
-            onClick={() => setMenuOpen(false)}
-          >
-            📧 Gmail
-          </a>
-          <a
-            href="https://web.whatsapp.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.linkMobile} ${styles.whatsappLinkMobile}`}
-            aria-label="Open WhatsApp"
-            title="Open WhatsApp"
-            onClick={() => setMenuOpen(false)}
-          >
-            💬 WhatsApp
-          </a>
+          {!isSalesTeam() && (
+            <>
+              <a
+                href="https://mail.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.linkMobile} ${styles.emailLinkMobile}`}
+                aria-label="Open Gmail"
+                title="Open Gmail"
+                onClick={() => setMenuOpen(false)}
+              >
+                📧 Gmail
+              </a>
+              <a
+                href="https://web.whatsapp.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.linkMobile} ${styles.whatsappLinkMobile}`}
+                aria-label="Open WhatsApp"
+                title="Open WhatsApp"
+                onClick={() => setMenuOpen(false)}
+              >
+                💬 WhatsApp
+              </a>
+            </>
+          )}
           <button
             type="button"
             className={`${styles.linkMobile} ${styles.linkMobileLogout}`}

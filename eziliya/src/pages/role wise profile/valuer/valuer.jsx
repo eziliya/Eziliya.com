@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import styles from './valuer.module.css'
 import ReportWorkflow from '../../../components/report/ReportWorkflow'
 
@@ -22,37 +22,23 @@ export default function Valuer() {
 
   const fetchReportCounts = async () => {
     try {
-      const token = localStorage.getItem('token');
-      
-      // Fetch completed reports count
-      const completedResponse = await fetch(`${API_BASE_URL}/completed-reports`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (completedResponse.ok) {
-        const completedData = await completedResponse.json();
-        setCompletedCount(completedData.reports?.length || 0);
+      // Get counts from localStorage (client-side only, no backend)
+      const savedForms = localStorage.getItem('auSmallFinanceForms');
+      if (savedForms) {
+        const forms = JSON.parse(savedForms);
+        const completed = forms.filter(form => form.status === 'submitted' || form.status === 'completed');
+        const pending = forms.filter(form => form.status === 'draft' || form.status === 'pending');
+        setCompletedCount(completed.length);
+        setPendingCount(pending.length);
+      } else {
+        setCompletedCount(0);
+        setPendingCount(0);
       }
-
-      // Fetch pending reports count
-      const pendingResponse = await fetch(`${API_BASE_URL}/pending-reports`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (pendingResponse.ok) {
-        const pendingData = await pendingResponse.json();
-        setPendingCount(pendingData.reports?.length || 0);
-      }
-
       setLoading(false);
     } catch (err) {
       console.error('Failed to fetch report counts:', err);
+      setCompletedCount(0);
+      setPendingCount(0);
       setLoading(false);
     }
   };
@@ -60,28 +46,17 @@ export default function Valuer() {
   const fetchAuSmallForms = async () => {
     setFormsLoading(true);
     try {
-      const token = localStorage.getItem('token');
-      
-      // Fetch AU Small Finance forms (draft and submitted) - increased limit to get all
-      const response = await fetch(`${API_BASE_URL}/ausmall-finance-form/all?status=draft&limit=100`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        console.log('AU Small Finance Forms Response:', data); // Debug log
-        setAuSmallForms(data.forms || []);
+      // Check localStorage for saved forms (client-side only, no backend)
+      const savedForms = localStorage.getItem('auSmallFinanceForms');
+      if (savedForms) {
+        const forms = JSON.parse(savedForms);
+        setAuSmallForms(forms.filter(form => form.status === 'draft'));
       } else {
-        const errorData = await response.json();
-        console.error('Failed to fetch forms:', response.status, errorData);
-        alert(`Failed to fetch forms: ${errorData.message || 'Unknown error'}`);
+        setAuSmallForms([]);
       }
     } catch (err) {
       console.error('Failed to fetch AU Small Finance forms:', err);
-      alert('Error loading forms. Please check console for details.');
+      setAuSmallForms([]);
     } finally {
       setFormsLoading(false);
     }
@@ -97,20 +72,14 @@ export default function Valuer() {
     }
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${API_BASE_URL}/ausmall-finance-form/${formId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (response.ok) {
+      // Delete from localStorage (client-side only, no backend)
+      const savedForms = localStorage.getItem('auSmallFinanceForms');
+      if (savedForms) {
+        const forms = JSON.parse(savedForms);
+        const updatedForms = forms.filter(form => form._id !== formId);
+        localStorage.setItem('auSmallFinanceForms', JSON.stringify(updatedForms));
         alert('Draft deleted successfully');
         fetchAuSmallForms(); // Refresh the list
-      } else {
-        alert('Failed to delete draft');
       }
     } catch (err) {
       console.error('Failed to delete form:', err);
@@ -134,6 +103,7 @@ export default function Valuer() {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.pageTitle}>Valuer Profile</h1>
+        <Link to="/" className={styles.homeLink}>Home</Link>
       </div>
 
       <div className={styles.profileSection}>

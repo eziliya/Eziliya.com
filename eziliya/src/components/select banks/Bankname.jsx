@@ -25,7 +25,7 @@ export default function Bankname() {
         <li className={styles.bankname}><Link to="/Godrejcapital">GODREJ CAPITAL</Link></li>
         <li className={styles.bankname}><Link to="/LandTfinance">L&T FINANCE</Link></li>
         <li className={styles.bankname}><Link to="/ausmallfinanceform">AU SMALL FINANCE</Link></li>
-        <li className={styles.bankname}><Link to="/UgroCapital">UGRO CAPITAL LTD</Link></li>
+        <li className={styles.bankname}><Link to="/UgroCapital">UGROW CAPITAL LTD</Link></li>
         <li className={styles.bankname}><Link to="/Nido">NIDO FINANCE</Link></li>
         <li className={styles.bankname}><Link to="/Idfc">IDFC BANK</Link></li>
         <li className={styles.bankname}><Link to="/Bhfl">BHFL</Link></li>

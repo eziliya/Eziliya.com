@@ -21,20 +21,6 @@ const authenticate = (req, res, next) => {
   }
 };
 
-/**
- * Authorize admin role only
- */
-const authorize = (req, res, next) => {
-   try {
-    const { role } = req.user;
-    if (role !== 'admin') {
-        return res.status(403).send({ message: "Forbidden" });
-    }
-    next();
-   } catch (error) {
-    return res.status(500).send({ message: "Internal server error" });
-   }
-};
 
 /**
  * Role-based authorization middleware
@@ -67,11 +53,11 @@ const authorizeRoles = (...allowedRoles) => {
 /**
  * Authorize specific roles for profile access
  */
-const authorizeValuer = authorizeRoles('valuer', 'admin');
-const authorizeSiteEngineer = authorizeRoles('site-engineer', 'admin');
-const authorizeTechnicalEngineer = authorizeRoles('technical-engineer', 'admin');
-const authorizeOfficeEngineer = authorizeRoles('office-engineer', 'admin');
-const authorizeSalesTeam = authorizeRoles('sales-team', 'admin');
+const authorizeValuer = authorizeRoles('valuer');
+const authorizeSiteEngineer = authorizeRoles('site-engineer');
+const authorizeTechnicalEngineer = authorizeRoles('technical-engineer');
+const authorizeOfficeEngineer = authorizeRoles('office-engineer');
+const authorizeSalesTeam = authorizeRoles('sales-team');
 
 /**
  * Authorize roles that can create reports
@@ -81,21 +67,19 @@ const authorizeReportCreation = authorizeRoles(
   'office-engineer',
   'site-engineer',
   'valuer',
-  'technical-engineer',
-  'admin'
+  'technical-engineer'
 );
 
 /**
  * Authorize roles that can edit reports
  * Office Engineer, Site Engineer, Valuer, and Technical Engineer can edit their own reports
- * Admin can edit all reports
  */
 const authorizeReportEdit = (req, res, next) => {
   try {
     const { role, _id: userId } = req.user;
     
     // Define roles allowed to edit reports
-    const allowedRoles = ['office-engineer', 'site-engineer', 'valuer', 'technical-engineer', 'admin'];
+    const allowedRoles = ['office-engineer', 'site-engineer', 'valuer', 'technical-engineer'];
     
     if (!role) {
       return res.status(403).send({
@@ -109,12 +93,7 @@ const authorizeReportEdit = (req, res, next) => {
       });
     }
 
-    // Admin can edit any report, others can only edit their own
-    if (role === 'admin') {
-      return next();
-    }
-
-    // For non-admin users, we'll need to verify ownership in the controller
+    // Users can only edit their own reports
     // Store the userId in request for controller to validate
     req.canEditAnyReport = false;
     req.reportOwnerId = userId;
@@ -127,25 +106,24 @@ const authorizeReportEdit = (req, res, next) => {
 
 /**
  * Authorize roles that can view reports
- * All engineer roles and admin can view reports
+ * All engineer roles can view reports
  */
 const authorizeReportView = authorizeRoles(
   'office-engineer',
   'site-engineer',
   'valuer',
   'technical-engineer',
-  'sales-team',
-  'admin'
+  'sales-team'
 );
 
 /**
- * Authorize admin to manage all reports
+ * Authorize roles that can manage reports
+ * Office engineers can manage reports
  */
-const authorizeReportManagement = authorizeRoles('admin');
+const authorizeReportManagement = authorizeRoles('office-engineer');
 
 export {
   authenticate,
-  authorize,
   authorizeRoles,
   authorizeValuer,
   authorizeSiteEngineer,

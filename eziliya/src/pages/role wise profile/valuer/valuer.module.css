@@ -29,19 +29,30 @@
   margin: 0;
 }
 
-.homeLink {
+.homeBtn {
   padding: 10px 25px;
   background: white;
   color: #4facfe;
   text-decoration: none;
+  border: none;
   border-radius: 25px;
   font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.homeLink:hover {
+.homeBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background: #f0f8ff;
+}
+
+.homeBtn:active {
+  transform: translateY(0);
 }
 
 .profileSection {

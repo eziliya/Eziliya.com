@@ -59,7 +59,7 @@ export default function SiteEngineerReports() {
   };
 
   const handleViewReport = (formId) => {
-    navigate('/ausmallfinance', { state: { formId } });
+    navigate('/ausmallfinance-report', { state: { formId } });
   };
 
   const handleDeleteReport = async (formId) => {

@@ -3,8 +3,19 @@ import mongoose from "mongoose";
 const ausmallFinanceFormSchema = new mongoose.Schema({
     userId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'User',
-        
+        ref:'User'
+    },
+    createdByRole:{
+        type:String,
+        enum:['valuer', 'site-engineer', 'technical-engineer', 'office-engineer']
+    },
+    BankName:{
+        type:String,
+        default:""
+    },
+    LoanAmount:{
+        type:Number,
+        default:0
     },
     NameofvaluationAgency:{
         type:String,
@@ -747,7 +758,7 @@ const ausmallFinanceFormSchema = new mongoose.Schema({
     },
     assignedTo:{
         type:String,
-        enum:["admin","office-engineer","site-engineer","technical-engineer","valuer","sales-team"],
+        enum:["office-engineer","site-engineer","technical-engineer","valuer","sales-team"],
         default:"office-engineer"
     },
     status:{

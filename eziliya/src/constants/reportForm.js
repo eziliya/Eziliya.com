@@ -162,7 +162,6 @@ export const floorAccommodationOptions = [
 
 // User Role Options
 export const userRoles = [
-  { value: "admin", label: "Admin" },
   { value: "evaluator", label: "Evaluator/Valuer" },
   { value: "technician", label: "Office Engineer/Technician" },
   { value: "sideengineer", label: "Site Engineer" },
@@ -184,7 +183,7 @@ export const formSections = {
     title: "Basic Information",
     fields: [
       { name: "taskTitle", label: "Task Title", type: "text", required: true },
-      { name: "adminInstructions", label: "Admin Instructions", type: "textarea" },
+      { name: "officeInstructions", label: "Office Instructions", type: "textarea" },
       { name: "assignedTo", label: "Assigned To", type: "select", options: userRoles, required: true },
       { name: "NameofvaluationAgency", label: "Name of valuation Agency", type: "datalist", options: valuationAgencyOptions },
       { name: "DateofTechnicalInitiation", label: "Date of Technical Initiation", type: "date" },
@@ -268,7 +267,7 @@ export const formSections = {
 // Initial Form Values
 export const initialFormValues = {
   taskTitle: "",
-  adminInstructions: "",
+  officeInstructions: "",
   assignedTo: "technician",
   NameofvaluationAgency: "",
   DateofTechnicalInitiation: "",

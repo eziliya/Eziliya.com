@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import CustomButton from '../buttons/CustomButton'
+import CustomButton from '../buttons/CustomButton.jsx'
 import { serverUrl } from '../../../config.mjs'
 import styles from './Signup.module.css'
 import { useNavigate } from 'react-router-dom'
 export default function Signup() {
   const navigate = useNavigate()
   const [name, setName] = useState('')
-  const [contactNumber, setContactNumber] = useState('')
+  const [mobileNumber, setMobileNumber] = useState('')
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('')
   const [error, setError] = useState('')
@@ -21,8 +21,8 @@ export default function Signup() {
       case 'name':
         setName(value)
         break
-      case 'contactNumber':
-        setContactNumber(value)
+      case 'mobileNumber':
+        setMobileNumber(value)
         break
       case 'password':
         setPassword(value)
@@ -37,49 +37,28 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
-    // Validate all fields
-    if (!name || !contactNumber || !password || !role) {
+    if (!name || !mobileNumber || !password || !role) {
       setError('All fields are required')
       return
     }
-
-    // Validate contact number format (10 digits)
-    const contactRegex = /^[0-9]{10}$/
-    if (!contactRegex.test(contactNumber)) {
-      setError('Please enter a valid 10-digit contact number')
-      return
-    }
-
-    // Validate password length
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters long')
-      return
-    }
-
     setError('')
     setSuccess('')
     try {
       const response = await axios.post(
         `${serverUrl}/register`,
-        { name, contactNumber, password, role },
+        { name, mobileNumber, password, role },
         { headers: { 'Content-Type': 'application/json' } }
       )
       if (response.status === 201) {
-        // Store user data in localStorage
-        localStorage.setItem('token', response.data.token)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-        localStorage.setItem('userName', response.data.user.name)
-        localStorage.setItem('userRole', response.data.user.role)
-        
         setSuccess(response.data.message)
-        // Navigate to home instead of login since user is now authenticated
-        navigate('/')
+        navigate('/login')
       } else {
         setError(response.data.message)
       }
     } catch (err) {
-      setError(err.response?.data?.message ?? 'Something went wrong. Try again.')
+      console.error('Signup error:', err.response?.data)
+      const errorMsg = err.response?.data?.error || err.response?.data?.message || 'Something went wrong. Try again.'
+      setError(errorMsg)
     }
   }
 
@@ -116,24 +95,24 @@ export default function Signup() {
               type="text"
               autoComplete="name"
               className={styles.input}
-              placeholder="Enter your full name"
+              placeholder="Jane Cooper"
               value={name}
               onChange={handleChange}
             />
           </div>
 
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="signup-contactNumber">
-              Contact Number
+            <label className={styles.label} htmlFor="signup-mobile">
+              Mobile Number
             </label>
             <input
-              id="signup-contactNumber"
-              name="contactNumber"
+              id="signup-mobile"
+              name="mobileNumber"
               type="tel"
               autoComplete="tel"
               className={styles.input}
-              placeholder="Enter your 10-digit contact number"
-              value={contactNumber}
+              placeholder="Enter your mobile number"
+              value={mobileNumber}
               onChange={handleChange}
             />
           </div>
@@ -148,7 +127,7 @@ export default function Signup() {
               type="password"
               autoComplete="new-password"
               className={styles.input}
-              placeholder="Enter your password"
+              placeholder="••••••••"
               value={password}
               onChange={handleChange}
             />
@@ -168,13 +147,11 @@ export default function Signup() {
               <option value="" disabled>
                 Select a role
               </option>
-              <option value="admin">Admin</option>
-              <option value="office-engineer">Office-Engineer</option>
-              <option value="site-engineer">Site-Engineer</option>
-              <option value="technical-engineer">Technical-Engineer</option>
-              <option value="valuer">Valuer</option>
               <option value="sales-team">Sales-Team</option>
-
+              <option value="technical engineer">Technical Engineer</option>
+              <option value="office engineer">Office Engineer</option>
+              <option value="site engineer">Site Engineer</option>
+              <option value="valuer">Valuer</option>
             </select>
           </div>
 

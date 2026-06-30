@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ValuerReports.module.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 export default function ValuerReports() {
   const [activeTab, setActiveTab] = useState('drafts');
@@ -18,36 +18,43 @@ export default function ValuerReports() {
   const fetchReports = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('token');
-
-      // Fetch draft reports
-      const draftResponse = await fetch(`${API_BASE_URL}/ausmall-finance-form/all?status=draft&limit=100`, {
+      // Fetch drafts from backend API
+      const draftsResponse = await fetch(`${API_BASE_URL}/ausmall-finance-form/drafts`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,
           'Content-Type': 'application/json'
         }
       });
-
-      if (draftResponse.ok) {
-        const draftData = await draftResponse.json();
-        setDrafts(draftData.forms || []);
+      
+      if (draftsResponse.ok) {
+        const draftsData = await draftsResponse.json();
+        setDrafts(draftsData.data || draftsData.forms || []);
+        console.log('✅ Fetched drafts:', draftsData);
+      } else {
+        console.error('Failed to fetch drafts:', draftsResponse.status);
+        setDrafts([]);
       }
 
-      // Fetch submitted reports
-      const submittedResponse = await fetch(`${API_BASE_URL}/ausmall-finance-form/all?status=submitted&limit=100`, {
+      // Fetch submitted forms from backend API
+      const submittedResponse = await fetch(`${API_BASE_URL}/ausmall-finance-form/all?status=submitted`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,
           'Content-Type': 'application/json'
         }
       });
-
+      
       if (submittedResponse.ok) {
         const submittedData = await submittedResponse.json();
-        setSubmitted(submittedData.forms || []);
+        setSubmitted(submittedData.data || submittedData.forms || []);
+        console.log('✅ Fetched submitted forms:', submittedData);
+      } else {
+        console.error('Failed to fetch submitted forms:', submittedResponse.status);
+        setSubmitted([]);
       }
     } catch (err) {
       console.error('Failed to fetch reports:', err);
-      alert('Error loading reports. Please try again.');
+      setDrafts([]);
+      setSubmitted([]);
     } finally {
       setLoading(false);
     }
@@ -58,7 +65,7 @@ export default function ValuerReports() {
   };
 
   const handleViewReport = (formId) => {
-    navigate('/ausmallfinance', { state: { formId } });
+    navigate('/ausmallfinance-report', { state: { formId } });
   };
 
   const handleDeleteReport = async (formId) => {
@@ -67,20 +74,21 @@ export default function ValuerReports() {
     }
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${API_BASE_URL}/ausmall-finance-form/${formId}`, {
+      // Delete from backend API
+      const response = await fetch(`${API_BASE_URL}/ausmall-finance-form/drafts/${formId}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,
           'Content-Type': 'application/json'
         }
       });
 
       if (response.ok) {
         alert('Report deleted successfully');
-        fetchReports();
+        fetchReports(); // Refresh the list
       } else {
-        alert('Failed to delete report');
+        const errorData = await response.json();
+        alert(`Failed to delete report: ${errorData.message || 'Unknown error'}`);
       }
     } catch (err) {
       console.error('Failed to delete report:', err);
@@ -120,6 +128,9 @@ export default function ValuerReports() {
     // Extract loan amount from various possible field names
     const loanAmount = report.loanAmount || report.LoanAmount || null;
     
+    // Extract bank name from various possible field names
+    const bankName = report.bankName || report.BankName || 'N/A';
+    
     return (
       <div key={report._id} className={styles.reportCard}>
         <div className={styles.reportHeader}>
@@ -129,7 +140,8 @@ export default function ValuerReports() {
           </span>
         </div>
         <div className={styles.reportDetails}>
-         <p><strong>Property Address:</strong> {propertyAddress}</p>           
+          <p><strong>Bank Name:</strong> {bankName}</p>
+          <p><strong>Property Address:</strong> {propertyAddress}</p>
           <p><strong>Loan Amount:</strong> {loanAmount ? `₹${loanAmount.toLocaleString('en-IN')}` : 'N/A'}</p>
           <p><strong>Created:</strong> {formatDate(report.createdAt)}</p>
           <p><strong>Last Updated:</strong> {formatDate(report.updatedAt)}</p>

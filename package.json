@@ -1,0 +1,11 @@
+{
+  "name": "eziliya-root",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm --prefix eziliya run dev",
+    "dev:frontend": "npm --prefix eziliya run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "start:backend": "npm --prefix backend run start"
+  }
+}

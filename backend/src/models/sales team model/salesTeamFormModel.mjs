@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import uploadfile from "../../aws/uploadfile.mjs";
 
 const salesTeamFormSchema = new mongoose.Schema({
     // User reference (optional for public submissions)
@@ -12,6 +13,12 @@ const salesTeamFormSchema = new mongoose.Schema({
     firmName: {
         type: String,
         required: true,
+        trim: true
+    },
+    firmRegisteredMobileNumber: {
+        type: String,
+        required: true,
+        match: /^[0-9]{10}$/,
         trim: true
     },
     propertyType: {
@@ -63,6 +70,11 @@ const salesTeamFormSchema = new mongoose.Schema({
         required: true,
         min: 0
     },
+
+      propertyRatePerSquareFeet: {
+        type: Number,
+        required: true
+    },
     customerPayAmount: {
         type: Number,
         required: true,
@@ -95,7 +107,7 @@ const salesTeamFormSchema = new mongoose.Schema({
     // Workflow and Status Management
     assignedTo: {
         type: String,
-        enum: ["admin", "office-engineer", "site-engineer", "technical-engineer", "valuer", "sales-team"],
+        enum: ["office-engineer", "site-engineer", "technical-engineer", "valuer", "sales-team"],
         default: "sales-team"
     },
     status: {
@@ -105,7 +117,7 @@ const salesTeamFormSchema = new mongoose.Schema({
     },
     workflowStage: {
         type: String,
-        enum: ["sales-team", "admin-review", "processing", "completed"],
+        enum: ["sales-team", "office-review", "processing", "completed"],
         default: "sales-team"
     },
     
@@ -134,7 +146,7 @@ const salesTeamFormSchema = new mongoose.Schema({
         default: "",
         trim: true
     },
-    adminNotes: {
+    officeNotes: {
         type: String,
         default: "",
         trim: true
@@ -148,6 +160,7 @@ salesTeamFormSchema.index({ userId: 1 });
 salesTeamFormSchema.index({ status: 1 });
 salesTeamFormSchema.index({ workflowStage: 1 });
 salesTeamFormSchema.index({ customerContactNumber: 1 });
+salesTeamFormSchema.index({ firmRegisteredMobileNumber: 1 });
 salesTeamFormSchema.index({ createdAt: -1 });
 
 // Virtual for calculating total property value
@@ -158,26 +171,26 @@ salesTeamFormSchema.virtual('totalPropertyValue').get(function() {
 // Method to submit the form
 salesTeamFormSchema.methods.submitForm = function() {
     this.status = 'submitted';
-    this.workflowStage = 'admin-review';
+    this.workflowStage = 'office-review';
     this.submittedAt = new Date();
     return this.save();
 };
 
 // Method to approve the form
-salesTeamFormSchema.methods.approveForm = function(adminId) {
+salesTeamFormSchema.methods.approveForm = function(officeEngineerId) {
     this.status = 'approved';
     this.workflowStage = 'processing';
     this.approvedAt = new Date();
-    this.updatedBy = adminId;
+    this.updatedBy = officeEngineerId;
     this.isUpdated = true;
     return this.save();
 };
 
 // Method to reject the form
-salesTeamFormSchema.methods.rejectForm = function(adminId, reason) {
+salesTeamFormSchema.methods.rejectForm = function(officeEngineerId, reason) {
     this.status = 'rejected';
-    this.adminNotes = reason;
-    this.updatedBy = adminId;
+    this.officeNotes = reason;
+    this.updatedBy = officeEngineerId;
     this.isUpdated = true;
     return this.save();
 };
@@ -192,17 +205,70 @@ salesTeamFormSchema.statics.findByStatus = function(status) {
     return this.find({ status }).sort({ createdAt: -1 });
 };
 
-// Pre-save middleware to validate financial data
-salesTeamFormSchema.pre('save', function(next) {
-    // Ensure loan amount and pay amount are positive
-    if (this.customerLoanAmount < 0 || this.customerPayAmount < 0 || this.propertyUnitRate < 0) {
-        next(new Error('Financial amounts must be positive'));
+// Static method to find forms by contact number
+salesTeamFormSchema.statics.findByContactNumber = function(contactNumber) {
+    return this.find({
+        $or: [
+            { customerContactNumber: contactNumber },
+            { customerAlternativeContactNumber: contactNumber }
+        ]
+    }).sort({ createdAt: -1 });
+};
+
+// Static method to search forms by customer name
+salesTeamFormSchema.statics.searchByCustomerName = function(customerName) {
+    return this.find({
+        customerName: { $regex: customerName, $options: 'i' }
+    }).sort({ createdAt: -1 });
+};
+
+// Static method to find forms by firm registered mobile number
+salesTeamFormSchema.statics.findByFirmRegisteredMobileNumber = function(mobileNumber) {
+    return this.find({ firmRegisteredMobileNumber: mobileNumber }).sort({ createdAt: -1 });
+};
+
+// Static method to search forms with multiple criteria
+salesTeamFormSchema.statics.searchForms = function(searchCriteria) {
+    const query = {};
+    
+    if (searchCriteria.userId) {
+        query.userId = searchCriteria.userId;
     }
-    next();
-});
+    
+    if (searchCriteria.contactNumber) {
+        query.$or = [
+            { customerContactNumber: searchCriteria.contactNumber },
+            { customerAlternativeContactNumber: searchCriteria.contactNumber }
+        ];
+    }
+    
+    if (searchCriteria.customerName) {
+        query.customerName = { $regex: searchCriteria.customerName, $options: 'i' };
+    }
+    
+    if (searchCriteria.firmName) {
+        query.firmName = { $regex: searchCriteria.firmName, $options: 'i' };
+    }
+    
+    if (searchCriteria.firmRegisteredMobileNumber) {
+        query.firmRegisteredMobileNumber = searchCriteria.firmRegisteredMobileNumber;
+    }
+    
+    if (searchCriteria.status) {
+        query.status = searchCriteria.status;
+    }
+    
+    if (searchCriteria.propertyType) {
+        query.propertyType = searchCriteria.propertyType;
+    }
+    
+    return this.find(query).sort({ createdAt: -1 });
+};
+
+// Validation is handled by Mongoose schema validators (min: 0)
+// No need for pre-save middleware
 
 const SalesTeamForm = mongoose.model('SalesTeamForm', salesTeamFormSchema);
 
 export default SalesTeamForm;
 
-// Made with Bob

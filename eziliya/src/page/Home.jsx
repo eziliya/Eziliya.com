@@ -8,10 +8,25 @@ export default function Home() {
   const [user, setUser] = useState(null)
   
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'))
-    setUser(user)
     const token = localStorage.getItem('token')
     if (!token) {
+      navigate('/login')
+      return
+    }
+    
+    const userStr = localStorage.getItem('user')
+    if (userStr && userStr !== 'undefined' && userStr !== 'null') {
+      try {
+        const user = JSON.parse(userStr)
+        setUser(user)
+      } catch (error) {
+        console.error('Error parsing user data:', error)
+        // Clear invalid data and redirect to login
+        localStorage.removeItem('user')
+        localStorage.removeItem('token')
+        navigate('/login')
+      }
+    } else {
       navigate('/login')
     }
   }, [navigate])
@@ -113,18 +128,6 @@ export default function Home() {
               description="Perform technical assessments"
               path="/role/technical-engineer"
             />
-          </div>
-        </div>
-
-        <div className={styles.quickAccessSection}>
-          <h2 className={styles.sectionTitle}>Quick Access</h2>
-          <div className={styles.quickAccessButtons}>
-            <Link to="/select-banks" className={styles.quickAccessBtn}>
-              🏦 Select Bank
-            </Link>
-            <Link to="/profile" className={styles.quickAccessBtn}>
-              👤 My Profile
-            </Link>
           </div>
         </div>
       </div>

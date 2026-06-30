@@ -61,7 +61,10 @@ export default function Profile() {
       return
     }
     const cached = readLocalUser()
-    if (cached) setUser(cached)
+    if (cached) {
+      setUser(cached)
+      setLoading(false)
+    }
 
     const userId = cached?._id
     if (!userId) {
@@ -70,8 +73,7 @@ export default function Profile() {
       return
     }
 
-    setLoading(true)
-    setError('')
+    // Try to fetch fresh data from server, but don't fail if server is unavailable
     try {
       const res = await axios.get(`${serverUrl}/getUser/${userId}`, {
         headers: authHeaders(),
@@ -79,15 +81,26 @@ export default function Profile() {
       const fresh = res.data.user
       setUser(fresh)
       localStorage.setItem('user', JSON.stringify(fresh))
+      setError('') // Clear any previous errors on success
     } catch (err) {
       if (err.response?.status === 401) {
-        navigate('/login', { replace: true })
-        return
+        // Only redirect on 401 if we don't have cached data
+        if (!cached) {
+          navigate('/login', { replace: true })
+          return
+        }
+        // If we have cached data, just show a warning
+        console.warn('Session may have expired, showing cached profile data')
       }
-      setError(
-        err.response?.data?.message ??
-          'Could not load profile. Showing cached details if any.'
-      )
+      // Don't show error if we have cached data - just log it
+      if (cached) {
+        console.log('Using cached profile data. Server sync failed:', err.message)
+      } else {
+        setError(
+          err.response?.data?.message ??
+            'Could not load profile. Please check if the backend server is running.'
+        )
+      }
     } finally {
       setLoading(false)
     }
@@ -134,10 +147,13 @@ export default function Profile() {
       )
 
       // Update user with new photo URL
-      const updatedUser = { ...user, profilePhoto: res.data.photoUrl }
+      const updatedUser = { ...user, profilePhoto: res.data.profilePhoto }
       setUser(updatedUser)
       localStorage.setItem('user', JSON.stringify(updatedUser))
       setUploadSuccess('Profile photo updated successfully!')
+      
+      // Reload profile to ensure we have the latest data
+      setTimeout(() => loadProfile(), 500)
       
       // Clear success message after 3 seconds
       setTimeout(() => setUploadSuccess(''), 3000)
@@ -252,11 +268,17 @@ export default function Profile() {
                       src={user.profilePhoto}
                       alt={user?.name || 'Profile'}
                       className={styles.avatarImage}
+                      onError={(e) => {
+                        console.error('Image failed to load:', user.profilePhoto);
+                        e.target.style.display = 'none';
+                      }}
+                      onLoad={() => console.log('Image loaded successfully:', user.profilePhoto)}
                     />
                   ) : (
                     initialFromName(user?.name)
                   )}
                 </div>
+                {console.log('Profile Photo URL:', user?.profilePhoto)}
                 <button
                   type="button"
                   className={styles.uploadButton}
@@ -309,7 +331,9 @@ export default function Profile() {
               </div>
               <div className={styles.heroText}>
                 <p className={styles.displayName}>{user?.name ?? '—'}</p>
-                <p className={styles.emailPreview}>{user?.contactNumber ?? '—'}</p>
+                <p className={styles.emailPreview}>
+                  {user?.mobileNumber ?? user?.mobileRegisterNumber ?? user?.contactNumber ?? '—'}
+                </p>
                 <span className={styles.rolePill}>{formatRole(user?.role)}</span>
               </div>
             </div>
@@ -320,18 +344,14 @@ export default function Profile() {
                 <dd className={styles.dd}>{user?.name ?? '—'}</dd>
               </div>
               <div className={styles.row}>
-                <dt className={styles.dt}>Contact Number</dt>
-                <dd className={styles.dd}>{user?.contactNumber ?? '—'}</dd>
+                <dt className={styles.dt}>Mobile Number</dt>
+                <dd className={styles.dd}>
+                  {user?.mobileNumber ?? user?.mobileRegisterNumber ?? user?.contactNumber ?? '—'}
+                </dd>
               </div>
               <div className={styles.row}>
                 <dt className={styles.dt}>Role</dt>
                 <dd className={styles.dd}>{formatRole(user?.role)}</dd>
-              </div>
-              <div className={styles.row}>
-                <dt className={styles.dt}>User ID</dt>
-                <dd className={`${styles.dd} ${styles.mono}`}>
-                  {user?._id ?? '—'}
-                </dd>
               </div>
               <div className={styles.row}>
                 <dt className={styles.dt}>Member since</dt>

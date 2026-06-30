@@ -136,8 +136,8 @@ export default function ReportWorkflow({ userRole }) {
                     <p><strong>Property Type:</strong> {report.propertyType}</p>
                     <p><strong>Address:</strong> {report.address}</p>
                     <p><strong>Created:</strong> {formatDate(report.createdAt)}</p>
-                    {report.adminInstructions && (
-                      <p><strong>Instructions:</strong> {report.adminInstructions}</p>
+                    {report.officeInstructions && (
+                      <p><strong>Instructions:</strong> {report.officeInstructions}</p>
                     )}
                   </div>
                   <button 

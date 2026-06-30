@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState,useRef } from 'react'
 import axios from 'axios'
+import firebase from '../firebase.js'
+
 import { Link, useNavigate } from 'react-router-dom'
-import CustomButton from '../buttons/CustomButton'
+import CustomButton from '../buttons/CustomButton.jsx'
 import { serverUrl } from '../../../config.mjs'
 import styles from './Login.module.css'
 
 export default function Login() {
   const navigate = useNavigate()
-  const [contactNumber, setContactNumber] = useState('')
+  const [mobileNumber, setMobileNumber] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
@@ -15,8 +17,8 @@ export default function Login() {
     const { name, value } = e.target
     if (error) setError('')
     switch (name) {
-      case 'contactNumber':
-        setContactNumber(value)
+      case 'mobileNumber':
+        setMobileNumber(value)
         break
       case 'password':
         setPassword(value)
@@ -28,7 +30,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!contactNumber || !password) {
+    if (!mobileNumber || !password) {
       setError('All fields are required')
       return
     }
@@ -36,14 +38,12 @@ export default function Login() {
     try {
       const response = await axios.post(
         `${serverUrl}/login`,
-        { contactNumber, password },
+        { mobileNumber, password },
         { headers: { 'Content-Type': 'application/json' } }
       )
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('user', JSON.stringify(response.data.user))
-        localStorage.setItem('userName', response.data.user.name)
-        localStorage.setItem('userRole', response.data.user.role)
         navigate('/')
       } else {
         setError(response.data.message)
@@ -59,7 +59,7 @@ export default function Login() {
         <header className={styles.header}>
           <h1 className={styles.title}>Welcome back</h1>
           <p className={styles.subtitle}>
-            Sign in with your contact number and password to continue to your workspace.
+            Sign in with your mobile number and password to continue to your workspace.
           </p>
         </header>
 
@@ -71,32 +71,35 @@ export default function Login() {
 
         <form className={styles.form} onSubmit={handleSubmit} noValidate>
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="login-contactNumber">
-              Contact Number
+            <label className={styles.label} htmlFor="login-mobile">
+              Mobile Number
             </label>
             <input
-              id="login-contactNumber"
-              name="contactNumber"
+              id="login-mobile"
+              name="mobileNumber"
               type="tel"
               autoComplete="tel"
               className={styles.input}
-              placeholder="Enter your contact number"
-              value={contactNumber}
+              placeholder="Enter your mobile number"
+              value={mobileNumber}
               onChange={handleChange}
             />
           </div>
 
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="login-password">
-              Password
-            </label>
+            <div className={styles.passwordHeader}>
+              <label className={styles.label} htmlFor="login-password">
+                Password
+              </label>
+            
+            </div>
             <input
               id="login-password"
               name="password"
               type="password"
               autoComplete="current-password"
               className={styles.input}
-              placeholder="Enter your password"
+              placeholder="••••••••"
               value={password}
               onChange={handleChange}
             />
@@ -108,12 +111,22 @@ export default function Login() {
         </form>
 
         <p className={styles.signupPrompt}>
-          Don&apos;t have an account?
+          Don't have an account?
           <Link to="/signup" className={styles.signupLink}>
             Sign up
           </Link>
         </p>
+
+        <p className={styles.forgotPasswordPrompt}>
+          <Link to="/forgot-password" className={styles.forgotPasswordLink}>
+            Forgot Password?
+          </Link>
+        </p>
+
+       
       </div>
     </div>
   )
 }
+
+

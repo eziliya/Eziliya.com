@@ -14,7 +14,7 @@ a, a:hover, a:visited, a:active {
 p {
   color: #000000 !important;
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .container {
@@ -31,28 +31,47 @@ p {
 /* Table Styles */
 table {
   width: 100%;
+  margin-bottom: 20px;
   border-collapse: collapse;
-  margin: 0;
-  border: 2px solid #000000;
+  page-break-inside: auto !important;
+  table-layout: fixed;
 }
 
+/* Caption Styles - Prevent page breaks */
+caption {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+  page-break-after: avoid !important;
+  break-after: avoid !important;
+  display: table-caption !important;
+  caption-side: top !important;
+}
+
+/* Ensure caption content doesn't break */
+caption > div {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+
 table tr {
-  border: 1px solid #000000;
+  border: 2px solid #000000;
 }
 
 table td,
 table th {
   padding: 12px;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   text-align: left;
   vertical-align: middle;
 }
+
 
 /* Ensure all table borders are visible */
 table tbody tr td,
 table thead tr th,
 table tfoot tr td {
-  border: 1px solid #000000 !important;
+  border: 2px solid #000000 !important;
 }
 
 table th {
@@ -64,7 +83,7 @@ table th {
 /* Headers */
 h1, h2, h3, h4 {
   color: #024606;
-  margin: 10px 0;
+  margin: 15px 5px;
   font-weight: 600;
   display: block;
   visibility: visible;
@@ -85,8 +104,8 @@ h2 {
   text-decoration: none;
 }
 
-h3 {
-  font-size: 18px;
+name {
+  font-size: 22px;
   margin: 0;
   color: #024606;
   font-weight: bold;
@@ -97,22 +116,22 @@ h3 {
 }
 
 h4 {
-  font-size: 14px;
+  font-size: 16px;
   margin: 10px 0;
   font-weight: 600;
-  text-decoration: none;
+  
  
 }
 
 /* Labels */
 label, lable, [for], [htmlFor] {
-  font-weight: 500 !important;
+  font-weight: 530 !important;
   color: #000000 !important;
   display: block;
   width: 100%;
   margin-bottom: 5px;
   visibility: visible !important;
-  font-size: 14px !important;
+  font-size: 20px !important;
   padding: 8px 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif !important;
@@ -138,18 +157,25 @@ select,
 option {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid #000000;
+  border: none;
   border-radius: 0;
-  font-size: 14px;
+  font-size: 20px;
+  font-weight: 530;
   font-family: Arial, sans-serif;
   color: #000000;
-  transition: all 0.3s ease;
+  transition: none;
   box-sizing: border-box;
   min-height: 38px;
-  background-color: #ffffff;
+  height: auto !important;
+  background-color: transparent;
   text-decoration: none !important;
   pointer-events: auto !important;
   cursor: text !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  overflow: visible !important;
+  line-height: 1.5 !important;
 }
 
 /* Remove underlines from all input elements */
@@ -161,15 +187,15 @@ input {
 
 input:focus {
   text-decoration: none !important;
-  outline: 2px solid #007bff;
-  border-color: #007bff;
+  outline: none;
+  border: none;
 }
 
 /* Datalist styling */
 datalist {
   width: 100%;
   font-size: 14px;
-  border: 1px solid #000000;
+  border: none;
   font-family: Arial, sans-serif;
 }
 
@@ -188,7 +214,7 @@ select option {
   font-size: 14px;
   color: #000000;
   background-color: #ffffff;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   font-family: Arial, sans-serif;
 }
 
@@ -199,9 +225,8 @@ input[type="file"]:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #000000;
-  border-width: 1px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border: none;
+  box-shadow: none;
 }
 
 input[type="text"]::placeholder,
@@ -214,20 +239,26 @@ textarea::placeholder {
 .input {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid #000000;
+  border: none;
   border-radius: 0;
   font-size: 14px;
   font-family: Arial, sans-serif;
   color: #000000;
   min-height: 38px;
+  height: auto !important;
   box-sizing: border-box;
-  background-color: #ffffff;
+  background-color: transparent;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  overflow: visible !important;
+  line-height: 1.5 !important;
 }
 
 .input:focus {
-  border-color: #000000;
-  border-width: 1px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 /* Table cell labels and inputs alignment */
@@ -256,15 +287,21 @@ table th textarea,
 table td option,
 table th option {
   width: 100%;
-  font-size: 14px;
+  font-size: 20px;
   font-family: Arial, sans-serif;
   color: #000000;
   padding: 8px 12px;
   min-height: 38px;
-  border: 1px solid #000000;
+  height: auto !important;
+  border: none;
   border-radius: 0;
-  background-color: #ffffff;
+  background-color: transparent;
   box-sizing: border-box;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  overflow: visible !important;
+  line-height: 1.5 !important;
 }
 
 /* Buttons */
@@ -344,7 +381,6 @@ tr th h3:first-child {
 /* Specific styling for Documents Name and Document Value headers */
 table tr td h3,
 table tr th h3 {
-  background-color: transparent;
   color: #024606;
   font-weight: bold;
   padding: 0;
@@ -399,15 +435,27 @@ table tr th h3 {
   margin: 20px;
 }
 
-/* Print Styles */
+/* Delete Photo Button - Hidden in PDF */
+.deletePhotoButton {
+  margin-top: 10px;
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Print Styles - Enhanced for proper page breaks */
 @media print {
   .container {
     max-width: 100%;
     padding: 10px;
   }
   
-  button {
-    display: none;
+  button,
+  .deletePhotoButton {
+    display: none !important;
   }
   
   input,
@@ -418,11 +466,54 @@ table tr th h3 {
   
   table {
     border: 2px solid #000;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
   
   table td,
   table th {
     border: 1px solid #000;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Prevent rows from breaking across pages */
+  table tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Keep table headers with content */
+  table thead {
+    display: table-header-group !important;
+  }
+  
+  /* Prevent caption from breaking */
+  caption {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+  
+  /* Prevent headings from being orphaned */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Keep images with their captions */
+  img {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  /* Prevent form sections from breaking */
+  .formSection {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 }
 
@@ -453,5 +544,172 @@ table tr th h3 {
     font-size: 16px;
   }
 }
+/* Table ID Specific Margins and Page Break Controls */
 
-/* Made with Bob */
+
+/* Add spacing between tables for better PDF layout */
+
+
+/* CRITICAL: Prevent table rows from breaking across pages */
+table tr {
+  page-break-inside: avoid !important;
+  break-inside: avoid-page !important;
+  page-break-after: auto !important;
+  break-after: auto !important;
+  display: table-row !important;
+}
+
+/* Prevent table cells from breaking */
+table td,
+table th {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+  vertical-align: top !important;
+}
+
+/* Keep table headers with their content */
+table thead {
+  display: table-header-group !important;
+  page-break-after: avoid !important;
+  break-after: avoid !important;
+}
+
+/* Keep table body together when possible */
+table tbody {
+  page-break-inside: auto !important;
+  break-inside: auto !important;
+  display: table-row-group !important;
+}
+
+/* Prevent orphaned rows at page breaks */
+table tbody tr:first-child {
+  page-break-before: avoid !important;
+  break-before: avoid !important;
+}
+
+table tbody tr:last-child {
+  page-break-after: auto !important;
+  break-after: auto !important;
+}
+
+/* Ensure row content stays together */
+table tbody tr td,
+table tbody tr th {
+  page-break-before: avoid !important;
+  page-break-after: avoid !important;
+  break-before: avoid !important;
+  break-after: avoid !important;
+}
+
+/* Special handling for disclaimer row - ensure it shifts to next page if cut */
+tr:has(td name:contains("Disclaimer")),
+tr:has(td > name) {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+  page-break-before: auto !important;
+  break-before: auto !important;
+}
+
+/* Ensure long content rows (like disclaimer) don't break */
+tr td[colspan="5"],
+tr td[colspan="6"] {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+/* Specific disclaimer row protection */
+tr td name {
+  page-break-after: avoid !important;
+  break-after: avoid !important;
+}
+/* PDF Quality Improvements */
+.pdfContainer {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* Ensure high-quality text rendering for PDF */
+* {
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  font-smooth: always !important;
+}
+
+/* Improve image quality in PDF */
+img {
+  image-rendering: -webkit-optimize-contrast !important;
+  image-rendering: crisp-edges !important;
+  -ms-interpolation-mode: nearest-neighbor !important;
+}
+
+/* Ensure borders are crisp in PDF */
+table, td, th, tr {
+  border-collapse: collapse !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* Prevent text from being blurry in PDF */
+p, span, div, label, input, textarea, select {
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+/* Remove borders for rows with no-border class */
+table tr.noBorder {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+table tr.noBorder td,
+table tr.noBorder th {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+table tbody tr.noBorder td,
+table tbody tr.noBorder th {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* Ensure no-border rows have no borders in print mode */
+@media print {
+  table tr.noBorder {
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+  
+  table tr.noBorder td,
+  table tr.noBorder th {
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+  
+  table tbody tr.noBorder td,
+  table tbody tr.noBorder th {
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+}
+

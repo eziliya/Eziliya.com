@@ -1,0 +1,1038 @@
+/* AU Small Finance Form - Modern Multi-Page Design */
+
+/* Quick Access Navbar */
+.quickAccessNav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 12px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  margin: -30px -30px 20px -30px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.navTitle {
+  color: rgb(243, 242, 242);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.quickAccessButtons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.quickAccessBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: rgba(250, 4, 4, 0.95);
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.quickAccessBtn:hover {
+  background-color: #f30505;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.quickAccessBtn:active {
+  transform: translateY(0);
+}
+
+.quickAccessBtn.gmail {
+  border-left: 4px solid #EA4335;
+}
+
+.quickAccessBtn.whatsapp {
+  border-left: 4px solid #25D366;
+}
+
+.quickAccessBtn.maps {
+  border-left: 4px solid #4285F4;
+}
+
+.quickAccessBtn.chatgpt {
+  border-left: 4px solid #10A37F;
+}
+
+.quickAccessBtn.esar {
+  border-left: 4px solid #FF6B35;
+}
+
+.quickAccessBtn.maharera {
+  border-left: 4px solid #F7931E;
+}
+
+.quickAccessBtn.calculator {
+  border-left: 4px solid #9B59B6;
+}
+
+.calculator .btnIcon {
+  color: #9B59B6;
+  font-weight: bold;
+}
+
+/* Stage Calculator Modal */
+.calculatorModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.calculatorModalContent {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  max-width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.closeCalculator {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+  z-index: 10;
+}
+
+.closeCalculator:hover {
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+}
+
+.closeCalculator:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+.btnIcon {
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  filter: grayscale(0);
+}
+
+/* Specific icon colors for better visibility */
+.gmail .btnIcon {
+  color: #EA4335;
+  font-weight: bold;
+}
+
+.whatsapp .btnIcon {
+  color: #25D366;
+  font-weight: bold;
+}
+
+.maps .btnIcon {
+  color: #4285F4;
+  font-weight: bold;
+}
+
+.chatgpt .btnIcon {
+  color: #10A37F;
+  font-weight: bold;
+}
+
+.esar .btnIcon {
+  color: #FF6B35;
+  font-weight: bold;
+}
+
+.maharera .btnIcon {
+  color: #F7931E;
+  font-weight: bold;
+}
+
+/* Main Container */
+.container {
+  max-width: 100%;
+  margin: 0;
+  padding: 30px;
+  background-color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+/* Form Background */
+.form {
+  background-color: #ffffff;
+}
+
+/* Header Section */
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 25px;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+  margin: -30px -30px 30px -30px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: white;
+}
+
+.header h2 {
+  margin: 10px 0 0 0;
+  font-size: 18px;
+  font-weight: 400;
+  color: white;
+  opacity: 0.95;
+}
+
+/* ============================================
+   PAGINATION STYLES - Modern Design
+   ============================================ */
+
+/* Progress Bar Container */
+.progressContainer {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.progressBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.progressBar::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #e0e0e0;
+  z-index: 0;
+}
+
+.progressBarFill {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.4s ease;
+  z-index: 1;
+  border-radius: 2px;
+}
+
+.progressStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.progressStep:hover .stepCircle {
+  transform: scale(1.1);
+}
+
+.stepCircle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: #999;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progressStep.active .stepCircle {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  transform: scale(1.15);
+}
+
+.progressStep.completed .stepCircle {
+  background: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.progressStep.completed .stepCircle::after {
+  content: '✓';
+  font-size: 20px;
+}
+
+.stepLabel {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  text-align: center;
+  max-width: 100px;
+  line-height: 1.3;
+}
+
+.progressStep.active .stepLabel {
+  color: #667eea;
+  font-weight: 700;
+}
+
+.progressStep.completed .stepLabel {
+  color: #28a745;
+}
+
+/* Page Content */
+.pageContent {
+  animation: fadeInUp 0.4s ease-out;
+  min-height: 500px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page Title */
+.pageTitle {
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 25px 0;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #667eea;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pageTitle::before {
+  content: '';
+  width: 6px;
+  height: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 3px;
+}
+
+/* Navigation Buttons */
+.navigationButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px solid #e0e0e0;
+  gap: 15px;
+}
+
+.navBtn {
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.prevBtn {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  color: white;
+}
+
+.prevBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a6268 0%, #343a40 100%);
+  transform: translateX(-3px);
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.3);
+}
+
+.nextBtn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.nextBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+  transform: translateX(3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.navBtn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none !important;
+}
+
+.navBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Section Headers */
+h3 {
+  color: #2c3e50;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 30px 0 20px 0;
+  padding: 12px 0 12px 15px;
+  border-left: 5px solid #667eea;
+  background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, transparent 100%);
+  border-radius: 4px;
+}
+
+h4 {
+  color: #34495e;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 0 15px 0;
+  padding-left: 10px;
+  border-left: 3px solid #95a5a6;
+}
+
+/* Form Sections */
+.formSection {
+  background-color: #ffffff;
+  padding: 25px;
+  margin-bottom: 25px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.formSection:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-color: #667eea;
+}
+
+/* Form Grid Layout */
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* Form Fields */
+.formField {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+/* Labels - Modern Style */
+label {
+  color: #2c3e50;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+  letter-spacing: 0.3px;
+}
+
+/* Input Fields - Modern Design */
+.input,
+.input[type="text"],
+.input[type="date"],
+.input[type="number"],
+.input[type="email"],
+.input[type="tel"],
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+input[list],
+textarea,
+select {
+  width: 100% !important;
+  min-height: 45px !important;
+  padding: 12px 15px !important;
+  border: 2px solid #000000 !important;
+  border-radius: 6px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  transition: all 0.3s ease;
+  box-sizing: border-box !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  line-height: 1.5 !important;
+  display: block !important;
+}
+
+/* Datalist Styling */
+datalist {
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 4px;
+}
+
+datalist option {
+  color: #000000;
+  background-color: #ffffff;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.input:focus,
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  background-color: #ffffff;
+}
+
+.input::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: #999999;
+  font-style: italic;
+}
+
+/* Textarea */
+textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Select Dropdown */
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 40px;
+}
+
+/* File Upload - Modern Style */
+.fileInput,
+
+/* Image Preview Styles */
+.imagePreview {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.previewImage {
+  max-width: 300px;
+  max-height: 300px;
+  width: auto;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .previewImage {
+    max-width: 100%;
+    max-height: 250px;
+  }
+}
+input[type="file"] {
+  padding: 12px;
+  border: 2px dashed #667eea;
+  border-radius: 8px;
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  transition: all 0.3s ease;
+}
+
+.fileInput:hover,
+input[type="file"]:hover {
+  border-color: #764ba2;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  transform: translateY(-2px);
+}
+
+/* Radio and Checkbox */
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+  cursor: pointer;
+  accent-color: #667eea;
+}
+
+.radioGroup,
+.checkboxGroup {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.radioGroup label,
+.checkboxGroup label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Submit Row */
+.submitRow {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px solid #e0e0e0;
+  flex-wrap: wrap;
+}
+
+/* Save Draft Button */
+.saveDraftBtn {
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+}
+
+.saveDraftBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #218838 0%, #1aa179 100%);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+  transform: translateY(-2px);
+}
+
+.saveDraftBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.saveDraftBtn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Submit Button */
+.submitBtn {
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submitBtn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Save Message */
+.saveMessage {
+  text-align: center;
+  padding: 12px 20px;
+  margin-top: 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  color: #155724;
+  border: 2px solid #c3e6cb;
+  animation: fadeIn 0.3s ease-in;
+  box-shadow: 0 2px 8px rgba(21, 87, 36, 0.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Prose Text */
+.prose {
+  line-height: 1.8;
+  color: #34495e;
+  font-size: 14px;
+  margin: 15px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-left: 4px solid #667eea;
+  border-radius: 4px;
+}
+
+/* Error Messages */
+.error {
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 5px;
+  display: block;
+  font-weight: 600;
+}
+
+.inputError {
+  border-color: #dc3545 !important;
+}
+
+/* Success Messages */
+.success {
+  color: #28a745;
+  font-size: 13px;
+  margin-top: 5px;
+  display: block;
+  font-weight: 600;
+}
+
+/* Required Field Indicator */
+.required::after {
+  content: " *";
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Loading State */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quickAccessNav {
+    margin: -20px -20px 15px -20px;
+    padding: 10px 15px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .navTitle {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .quickAccessButtons {
+    justify-content: center;
+  }
+
+  .quickAccessBtn {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+  }
+
+  .container {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .header {
+    margin: -20px -20px 20px -20px;
+    padding: 20px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .header h2 {
+    font-size: 16px;
+  }
+
+  .pageTitle {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .progressBar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .stepCircle {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .stepLabel {
+    font-size: 10px;
+    max-width: 80px;
+  }
+
+  .navigationButtons {
+    flex-direction: column;
+  }
+
+  .navBtn,
+  .submitRow button {
+    width: 100%;
+  }
+
+  .submitRow {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 14px;
+  }
+
+  .progressContainer {
+    padding: 15px;
+  }
+
+  .stepCircle {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .stepLabel {
+    font-size: 9px;
+    max-width: 60px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .container {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .header {
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+  }
+
+  .quickAccessNav,
+  .navigationButtons,
+  .submitRow,
+  button {
+    display: none !important;
+  }
+
+  .formSection {
+    page-break-inside: avoid;
+  }
+
+  .progressContainer {
+    display: none;
+  }
+}
+
+/* Accessibility */
+*:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .input,
+  input,
+  select,
+  textarea {
+    border-width: 3px;
+  }
+
+  button {
+    border: 3px solid currentColor;
+  }
+}
+
+/* Responsive adjustments for calculator modal */
+@media (max-width: 768px) {
+  .calculatorModal {
+    padding: 10px;
+  }
+  
+  .calculatorModalContent {
+    max-width: 100%;
+    max-height: 95vh;
+    border-radius: 12px;
+  }
+  
+  .closeCalculator {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+}
+
+/* Made with Bob - Modern Multi-Page Form */
+
+/* Made with Bob */

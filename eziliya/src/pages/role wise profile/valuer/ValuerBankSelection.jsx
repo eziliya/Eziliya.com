@@ -46,27 +46,16 @@ export default function ValuerBankSelection() {
 
   const fetchDraftCounts = async () => {
     try {
-      const token = localStorage.getItem('token');
       const counts = {};
 
-      // Fetch draft counts for banks that support drafts
-      for (const bank of banks.filter(b => b.hasDraftSupport)) {
-        try {
-          const response = await fetch(`${API_BASE_URL}${bank.draftEndpoint}`, {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            counts[bank.name] = data.forms?.length || 0;
-          }
-        } catch (err) {
-          console.error(`Failed to fetch drafts for ${bank.name}:`, err);
-          counts[bank.name] = 0;
-        }
+      // Get draft counts from localStorage (client-side only, no backend)
+      const savedForms = localStorage.getItem('auSmallFinanceForms');
+      if (savedForms) {
+        const forms = JSON.parse(savedForms);
+        const draftForms = forms.filter(form => form.status === 'draft');
+        counts['AU Small Finance'] = draftForms.length;
+      } else {
+        counts['AU Small Finance'] = 0;
       }
 
       setDraftCounts(counts);

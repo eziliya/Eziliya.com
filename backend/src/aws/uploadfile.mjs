@@ -1,14 +1,45 @@
 import { config } from "../../config.mjs";
-import aws from "aws-sdk";
+import { S3Client, PutObjectCommand, DeleteObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-// Configure AWS SDK
-aws.config.update({
-    accessKeyId: config.secretKey,
-    secretAccessKey: config.secretAccesekey,
-    region: config.region
+// Log AWS configuration (without exposing full credentials)
+console.log("🔧 AWS S3 Configuration:");
+console.log("   Region:", config.region);
+console.log("   Access Key:", config.secretKey ? `${config.secretKey.substring(0, 8)}...` : "MISSING");
+console.log("   Secret Key:", config.secretAccesekey ? "***configured***" : "MISSING");
+console.log("   Bucket: eziliyareport");
+
+// Validate AWS credentials
+if (!config.secretKey || !config.secretAccesekey || !config.region) {
+    console.error("❌ AWS credentials are missing! Check your .env file.");
+    throw new Error("AWS credentials not configured properly");
+}
+
+// Configure AWS SDK v3 S3 Client with enhanced settings
+const s3Client = new S3Client({
+    region: config.region,
+    credentials: {
+        accessKeyId: config.secretKey,
+        secretAccessKey: config.secretAccesekey
+    },
+    // Explicit endpoint configuration for better reliability
+    endpoint: `https://s3.${config.region}.amazonaws.com`,
+    // Force path style for compatibility
+    forcePathStyle: false,
+    // Increase timeout for slow networks
+    requestHandler: {
+        requestTimeout: 30000, // 30 seconds
+        httpsAgent: {
+            maxSockets: 50,
+            keepAlive: true
+        }
+    },
+    // Retry configuration
+    maxAttempts: 3,
+    retryMode: "adaptive"
 });
 
-const s3 = new aws.S3({ apiVersion: "2006-03-01" });
+console.log("✅ S3 Client initialized successfully");
 
 /**
  * Upload a file to AWS S3
@@ -17,18 +48,18 @@ const s3 = new aws.S3({ apiVersion: "2006-03-01" });
  * @returns {Promise<String>} - Returns the public URL of the uploaded file
  */
 const uploadfile = async (file, folder = 'general') => {
-    return new Promise((resolve, reject) => {
+    try {
         // Validate file object
         if (!file) {
-            return reject(new Error("File object is required"));
+            throw new Error("File object is required");
         }
         
         if (!file.buffer) {
-            return reject(new Error("Invalid file object: buffer is missing"));
+            throw new Error("Invalid file object: buffer is missing");
         }
         
         if (!file.originalname) {
-            return reject(new Error("Invalid file object: originalname is missing"));
+            throw new Error("Invalid file object: originalname is missing");
         }
 
         // Sanitize filename - remove special characters and spaces
@@ -44,46 +75,77 @@ const uploadfile = async (file, folder = 'general') => {
         const contentType = file.mimetype || 'application/octet-stream';
 
         // Set up S3 upload parameters
-        const uploadparams = {
-            ACL: "public-read",
+        const uploadParams = {
             Bucket: "eziliyareport",
-            Key: `eziliya/${folder}/${uniqueFilename}`,
+            Key: `eziliyareports/${folder}/${uniqueFilename}`,
             Body: file.buffer,
             ContentType: contentType,
+            // ACL removed - bucket has Block Public Access enabled
             Metadata: {
                 'original-name': file.originalname,
                 'upload-timestamp': timestamp.toString()
             }
         };
 
-        console.log(`📤 Uploading file to S3: ${uploadparams.Key}`);
+        console.log(`📤 Uploading file to S3: ${uploadParams.Key}`);
         console.log(`   Size: ${(file.buffer.length / 1024).toFixed(2)} KB`);
         console.log(`   Type: ${contentType}`);
+        console.log(`   Bucket: ${uploadParams.Bucket}`);
+        console.log(`   Region: ${config.region}`);
 
-        // Upload to S3
-        s3.upload(uploadparams, (err, data) => {
-            if (err) {
-                console.error("❌ S3 Upload Error:", {
-                    code: err.code,
-                    message: err.message,
-                    statusCode: err.statusCode,
-                    region: config.region,
-                    bucket: uploadparams.Bucket,
-                    key: uploadparams.Key,
-                    file: file.originalname
-                });
-                return reject(new Error(`S3 Upload failed: ${err.message}`));
+        // Upload to S3 using AWS SDK v3 with retry logic
+        const command = new PutObjectCommand(uploadParams);
+        
+        let lastError;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+                console.log(`   Attempt ${attempt}/3...`);
+                await s3Client.send(command);
+                
+                // Construct the public URL
+                const fileUrl = `https://${uploadParams.Bucket}.s3.${config.region}.amazonaws.com/${uploadParams.Key}`;
+
+                console.log(`✅ File uploaded successfully: ${fileUrl}`);
+                return fileUrl;
+            } catch (error) {
+                lastError = error;
+                console.error(`   ❌ Attempt ${attempt} failed:`, error.message);
+                
+                if (attempt < 3) {
+                    // Wait before retrying (exponential backoff)
+                    const waitTime = Math.pow(2, attempt) * 1000;
+                    console.log(`   ⏳ Waiting ${waitTime}ms before retry...`);
+                    await new Promise(resolve => setTimeout(resolve, waitTime));
+                }
             }
-
-            if (!data || !data.Location) {
-                console.error("❌ S3 Upload Error: No location returned");
-                return reject(new Error("Failed to upload file: No location returned from S3"));
-            }
-
-            console.log(`✅ File uploaded successfully: ${data.Location}`);
-            resolve(data.Location);
+        }
+        
+        // All attempts failed
+        throw lastError;
+    } catch (error) {
+        console.error("❌ S3 Upload Error:", {
+            code: error.code || error.name,
+            message: error.message,
+            region: config.region,
+            bucket: "eziliyareport",
+            file: file?.originalname,
+            endpoint: `https://s3.${config.region}.amazonaws.com`
         });
-    });
+        
+        // Provide more helpful error messages
+        let errorMessage = error.message;
+        if (error.message.includes('ENOTFOUND') || error.message.includes('getaddrinfo')) {
+            errorMessage = `Network error: Cannot reach AWS S3. Please check your internet connection and DNS settings. Original error: ${error.message}`;
+        } else if (error.code === 'InvalidAccessKeyId') {
+            errorMessage = 'Invalid AWS Access Key. Please check your credentials in .env file.';
+        } else if (error.code === 'SignatureDoesNotMatch') {
+            errorMessage = 'Invalid AWS Secret Key. Please check your credentials in .env file.';
+        } else if (error.code === 'NoSuchBucket') {
+            errorMessage = 'S3 bucket "eziliyareport" does not exist or is not accessible.';
+        }
+        
+        throw new Error(`S3 Upload failed: ${errorMessage}`);
+    }
 };
 
 /**
@@ -130,13 +192,15 @@ export const deleteFile = async (fileUrl) => {
         const key = urlParts[1];
 
         const deleteParams = {
-            Bucket: "eziliya",
+            Bucket: "eziliyareport",
             Key: key
         };
 
         console.log(`🗑️  Deleting file from S3: ${key}`);
 
-        await s3.deleteObject(deleteParams).promise();
+        const command = new DeleteObjectCommand(deleteParams);
+        await s3Client.send(command);
+
         console.log(`✅ File deleted successfully: ${key}`);
         return true;
     } catch (error) {
@@ -145,4 +209,43 @@ export const deleteFile = async (fileUrl) => {
     }
 };
 
+/**
+ * Generate a pre-signed URL for accessing a private S3 object
+ * @param {String} fileUrl - The S3 URL of the file
+ * @param {Number} expiresIn - URL expiration time in seconds (default: 1 hour)
+ * @returns {Promise<String>} - Returns a pre-signed URL
+ */
+export const getPresignedUrl = async (fileUrl, expiresIn = 3600) => {
+    if (!fileUrl) {
+        return null;
+    }
+
+    try {
+        // Extract key from URL
+        const urlParts = fileUrl.split('.com/');
+        if (urlParts.length < 2) {
+            console.error("Invalid S3 URL format:", fileUrl);
+            return fileUrl; // Return original URL if parsing fails
+        }
+        
+        const key = urlParts[1];
+
+        const command = new GetObjectCommand({
+            Bucket: "eziliyareport",
+            Key: key
+        });
+
+        // Generate pre-signed URL that expires in specified time
+        const presignedUrl = await getSignedUrl(s3Client, command, { expiresIn });
+        
+        console.log(`🔗 Generated pre-signed URL for: ${key} (expires in ${expiresIn}s)`);
+        return presignedUrl;
+    } catch (error) {
+        console.error("❌ Error generating pre-signed URL:", error);
+        return fileUrl; // Return original URL as fallback
+    }
+};
+
 export default uploadfile;
+
+// Made with Bob

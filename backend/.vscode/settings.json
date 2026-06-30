@@ -1,0 +1,14 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "nodemon.json"
+      ],
+      "url": "https://json.schemastore.org/nodemon.json"
+    }
+  ],
+  "http.proxyStrictSSL": false,
+  "json.schemaDownload.enable": true
+}
+
+// Made with Bob
