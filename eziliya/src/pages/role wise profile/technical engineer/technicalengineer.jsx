@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from './technicalengineer.module.css'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 export default function Technicalengineer() {
+  const navigate = useNavigate();
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [propertyAddress, setPropertyAddress] = useState('');
@@ -160,6 +161,12 @@ export default function Technicalengineer() {
         <div className={styles.actionSection}>
           <h3>Quick Actions</h3>
           <div className={styles.actionButtons}>
+            <button
+              className={styles.selectBankBtn}
+              onClick={() => navigate('/technical-engineer/reports')}
+            >
+              📋 My Reports
+            </button>
             <Link to="/select-banks" className={styles.selectBankBtn}>
               📝 Create Report
             </Link>
