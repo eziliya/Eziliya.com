@@ -81,7 +81,7 @@ export default function Home() {
       <Navbar />
       
       <div className={styles.content}>
-        <h1 className={styles.title}>Welcome to Eziliya Report Management System</h1>
+        <h1 className={styles.title}>Welcome to Precision Value Report Management System</h1>
         {user && <p className={styles.welcomeText}>Hello, {user.name || user.email}!</p>}
         
         <div className={styles.roleSection}>
